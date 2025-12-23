@@ -1,6 +1,6 @@
 var LANGUAGES = {
-    "_": { defaultLanguage: "en", defaultVOLanguage: "ja", defaultSpeed: 20, defaultRandmo: "off" },
-    "cn": {
+    "_": { defaultLanguage: "cn", defaultVOLanguage: "ja", defaultSpeed: 20, defaultRandmo: "off" },
+    "en": {
         audioList: [
             // TODO audio random weight
             "audio/en/en_1.mp3",
