@@ -1,0 +1,27 @@
+{
+  "lang": "ja",
+  "audioList": [
+    "audio/ja/kuruto.mp3",
+    "audio/ja/kuru1.mp3",
+    "audio/ja/kuru2.mp3"
+  ],
+  "texts": {
+    "page-title": "ヘルタクルへようこそ~",
+    "doc-title": "クル クル~",
+    "page-descriptions": "このサイトはヘルタのために作られた、 あの崩壊：スターレイルの <del>悩ましい</del> かわいい天才キャラー。",
+    "counter-descriptions": "全世界のクル再生数",
+    "counter-unit": "回",
+    "counter-button": "クル クル~!",
+    "access-via-pages": "今アクセスしてるページはぎGitHubです。中国大陸まだは他の地域のユーサーはNetlifyのミラーに入るために、<a href='https://herta.ft2.ltd/'>ここにクリックして</a>ください。",
+    "access-via-mirror": "おめでとうございます！今はもうミラーサイトを使っています、中国大陸まだは他の地域のアクセス速度が速くなります。サイトのソースを見たいなら、<a href='https://duiqt.github.io/herta_kuru/'>ここにクリックして</a>、GitHubページで見てください。",
+    "show-credits-text": "Show Credits",
+    "repository-desc": "GitHub Repo",
+    "options-txt-vo-lang": "Voice-Over Language",
+    "options-txt-random_speed": "ランダム速度",
+    "options-txt-speed": "速度",
+    "options-txt-lang": "Page Language",
+    "dialogs-close": "Close",
+    "dialogs-credits-title": "Credits"
+  },
+  "cardImage": "img/card_ja.jpg"
+}

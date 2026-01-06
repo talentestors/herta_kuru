@@ -1,0 +1,39 @@
+{
+  "lang": "en-US",
+  "audioList": [
+    "audio/en/en_1.mp3",
+    "audio/en/en_2.mp3",
+    "audio/en/en_3.mp3"
+  ],
+  "texts": {
+    "page-title": "Welcome to herta kuru~",
+    "doc-title": "Kuru Kuru~",
+    "page-descriptions": "The website for Herta, the <del>annoying</del> cutest genius Honkai: Star Rail character out there.",
+    "counter-descriptions": [
+      "The kuru~ has been squished for",
+      "Herta has been kuru~ed for"
+    ],
+    "counter-unit": "times",
+    "counter-button": ["Squish the kuru~!", "Kuru kuru~!"],
+    "access-via-pages": "You're currently accessing via GitHub Pages. For users in China (Mainland) or some other regions, click <a href='https://herta.ft2.ltd/'>here to access the mirror on Netlify</a>. ",
+    "access-via-mirror": "Congratulations! You are using a mirror site, which should speed up access within China (Mainland) and some regions. Click here to <a href='https://duiqt.github.io/herta_kuru/'>visit the source site on GitHub Pages</a>.",
+    "show-credits-text": "Show Credits",
+    "repository-desc": "GitHub Repo",
+    "options-txt-vo-lang": "Voice-Over Language",
+    "options-txt-random_speed": "Random speed",
+    "options-txt-speed": "Speed",
+    "options-txt-lang": "Page Language",
+    "dialogs-close": "Close",
+    "dialogs-credits-title": "Credits",
+
+    "CREDITS:main-dev": "Main Developer",
+    "CREDITS:code-contributor": "Code Contributor",
+    "CREDITS:artist": "Artist",
+    "CREDITS:localization": "Localization Contributor",
+    "CREDITS:localization:Korean": "Korean Localization Contributor",
+    "CREDITS:localization:Japanese": "Japanese Localization Contributor",
+    "CREDITS:localization:Indonesian": "Indonesian Localization Contributor",
+    "CREDITS:inspiration": "Inspiration"
+  },
+  "cardImage": "img/card_en.jpg"
+}

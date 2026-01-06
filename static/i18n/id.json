@@ -1,0 +1,29 @@
+{
+  "lang": "id",
+  "audioList": null,
+  "texts": {
+    "page-title": "Selamat datang di Herta kuru~",
+    "doc-title": "Kuru Kuru~",
+    "page-descriptions": "Situs web yang dipersembahkan kepada Herta, sang Karakter Jenius <del>ngeselin</del> dari Honkai: Star Rail.",
+    "counter-descriptions": [
+      "Kuru nya telah dipencet sebanyak",
+      "Herta telah ter-kuru-kan sebanyak"
+    ],
+    "counter-unit": "kali",
+    "counter-button": [
+      "Pencet kuru nya~!",
+      "Kuru kuru~!"
+    ],
+    "access-via-pages": "Kamu saat ini sedang mengakses melalui Laman GitHub. Untuk pengguna berdomisili di Tiongkok (Daratan) dan wilayah lainnya, silakan klik <a href='https://herta.ft2.ltd/'> di sini untuk mengakses mirror nya di Netlify</a>. ",
+    "access-via-mirror": "Selamat! Kamu sedang menggunakan situs mirror, yang mana seharusnya mempercepat akses untuk wilayah sekitar Tiongkok (daratan) dan wilayah lainnya . Silakan klik <a href='https://duiqt.github.io/herta_kuru/'> di sini untuk mengunjungi situs sumbernya pada Laman Github</a>.",
+    "show-credits-text": "Tampilkan Credit",
+    "repository-desc": "GitHub Repo",
+    "options-txt-vo-lang": "Voice-Over Language",
+    "options-txt-random_speed": "Kecepatan acak",
+    "options-txt-speed": "kecepatan",
+    "options-txt-lang": "Page Language",
+    "dialogs-close": "Close",
+    "dialogs-credits-title": "Credits"
+  },
+  "cardImage": "img/card_id.jpg"
+}
