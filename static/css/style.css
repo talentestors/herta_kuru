@@ -1,6 +1,5 @@
 * {
-  --cdn-url: https: //r2.yuhiri.me/herta_kuru/ 
-    margin: 0;
+  margin: 0;
   padding: 0;
   /* disable double_tap zoom on mobile devices */
   -ms-touch-action: manipulation;
@@ -20,7 +19,8 @@ del:not(:hover) {
 
 body {
   background-color: #9d88d3;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", "Roboto", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", "Roboto",
+    sans-serif;
   font-size: 1.5em;
   color: white;
   overflow-x: hidden;
@@ -34,7 +34,7 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: url("https://r2.yuhiri.me/herta_kuru/img/hertaa1.gif"),
+  background-image: url("https://s3.yuhiri.me/we/https://r2.yuhiri.me/herta_kuru/img/hertaa1.gif"),
     url("../img/hertaa1.gif");
   background-repeat: no-repeat;
   background-position: 50%;
@@ -57,7 +57,7 @@ body {
   transform: translateX(-50%);
   width: 100px;
   height: 100px;
-  background-image: url("https://r2.yuhiri.me/herta_kuru/img/hertaa1.gif"),
+  background-image: url("https://s3.yuhiri.me/we/https://r2.yuhiri.me/herta_kuru/img/hertaa1.gif"),
     url("../img/hertaa1.gif");
   background-repeat: no-repeat;
   background-position: 50%;
@@ -125,7 +125,7 @@ h2 {
   margin: 64px 0;
 }
 
-#counter-container>p {
+#counter-container > p {
   text-shadow: #9d88d3 0 0 10px, #9d88d3 0 0 10px, #9d88d3 0 0 10px, #9d88d3 0 0 10px, #9d88d3 0 0 10px;
 }
 
@@ -377,7 +377,7 @@ td#setting-item-table-td {
   text-align: right;
 }
 
-td#setting-item-table-td>div.mdui-select {
+td#setting-item-table-td > div.mdui-select {
   text-align: center;
   width: 100%;
 }

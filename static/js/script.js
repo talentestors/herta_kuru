@@ -1,4 +1,5 @@
-// var cdn = "https://r2.yuhiri.me/herta_kuru/";
+var cdn = "https://r2.yuhiri.me/herta_kuru/";
+var cdnImage = "https://s3.yuhiri.me/we/https://r2.yuhiri.me/herta_kuru/";
 
 var LANGUAGES = {
   _: {
@@ -24,15 +25,18 @@ const progress = [0, 1];
   const $ = mdui.$;
 
   // initialize cachedObjects variable to store cached object URLs
-  var cachedObjects = {};
+  var CACHED_OBJECTS = new Map();
 
   function getUrl(url, cdn = null) {
+    if (url.startsWith("img/") && cdnImage && cdnImage.trim() !== "") {
+      return cdnImage + url;
+    }
     const basePath = cdn && cdn.trim() !== "" ? cdn : "static/";
     return basePath + url;
   }
 
-  function getLang(lang, load = false) {
-    if (typeof LANGUAGES[lang] !== "string" && !load) {
+  function getLang(lang) {
+    if (typeof LANGUAGES[lang] !== "string") {
       return Promise.resolve(LANGUAGES[lang]);
     } else {
       const fullPath = "static/i18n/" + LANGUAGES[lang];
@@ -66,15 +70,18 @@ const progress = [0, 1];
 
   // function to try caching an object URL and return it if present in cache or else fetch it and cache it
   function cacheStaticObj(origUrl) {
-    if (cachedObjects[origUrl]) {
-      return cachedObjects[origUrl];
+    if (CACHED_OBJECTS.get(origUrl)) {
+      return CACHED_OBJECTS.get(origUrl);
     } else {
       setTimeout(() => {
-        fetch(getUrl(origUrl))
+        fetch(getUrl(origUrl), {
+          method: "GET",
+          referrer: "",
+        })
           .then((response) => response.blob())
           .then((blob) => {
             const blobUrl = URL.createObjectURL(blob);
-            cachedObjects[origUrl] = blobUrl;
+            CACHED_OBJECTS.set(origUrl, blobUrl);
           })
           .catch((error) => {
             console.error(`Error caching object from ${origUrl}: ${error}`);
@@ -140,36 +147,18 @@ const progress = [0, 1];
   // initialize timer variable and add event listener to the counter button element
   const counterButton = document.querySelector("#counter-button");
 
-  // function freeBlob(blobUrls) {
-  //   for (blobUrl in blobUrls) {
-  //     URL.revokeObjectURL(blobUrl);
-  //   }
-  // }
-
   // Preload
-  async function convertMp3FilesToBlob(dict, prevLang = null) {
-    // if (prevLang !== null) {
-    //   freeBlob(LANGUAGES[prevLang].audioList);
-    //   getLang(lang, true).then((curLang) => {
-    //     LANGUAGES[prevLang].audioList = curLang.audioList;
-    //   });
-    // }
+  async function convertMp3FilesToBlob(dict, prevLang = null, lang = current_vo_language) {
     const promises = [];
-    for (const lang in dict) {
-      if (dict.hasOwnProperty(lang) && lang !== "_") {
-        curLang = await getLang(lang);
-        const audioList = curLang.audioList;
-        if (Array.isArray(audioList)) {
-          for (let i = 0; i < audioList.length; i++) {
-            const url = audioList[i];
-            if (typeof url === "string" && url.endsWith(".mp3")) {
-              promises.push(
-                loadAndEncode(getUrl(url)).then(
-                  (result) => (dict[lang].audioList[i] = URL.createObjectURL(result))
-                )
-              );
-            }
-          }
+    let curLang = await getLang(lang);
+    const audioList = curLang.audioList;
+    if (Array.isArray(audioList)) {
+      for (let i = 0; i < audioList.length; i++) {
+        const url = audioList[i];
+        if (typeof url === "string" && url.endsWith(".mp3") && !CACHED_OBJECTS.get(url)) {
+          promises.push(
+            loadAndEncode(getUrl(url)).then((result) => CACHED_OBJECTS.set(url, URL.createObjectURL(result)))
+          );
         }
       }
     }
@@ -180,26 +169,28 @@ const progress = [0, 1];
 
   function upadteProgress() {
     progress[0] += 1;
-    // progress[1] = Math.max(progress[0], progress[1]);
+    progress[1] = Math.max(progress[0], progress[1]);
     counterButton.innerText = `${((progress[0] / progress[1]) * 100) | 0}%`;
   }
 
-  function loadAndEncode(url) {
+  async function loadAndEncode(url) {
+    const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+    await sleep(100);
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.open("GET", url, true);
       xhr.responseType = "blob";
       xhr.onload = function () {
-        upadteProgress();
         if (xhr.status === 200) {
           resolve(xhr.response);
         } else {
           reject(xhr.statusText);
         }
+        upadteProgress();
       };
       xhr.onerror = function () {
-        upadteProgress();
         reject(xhr.statusText);
+        upadteProgress();
       };
       xhr.send();
     });
@@ -226,7 +217,7 @@ const progress = [0, 1];
       .finally(() => {
         refreshDynamicTexts();
         addBtnEvent();
-        document.getElementById("loading").remove();
+        document.getElementById("loading").style.display = "none";
       });
   };
 
@@ -251,11 +242,7 @@ const progress = [0, 1];
   }
 
   function getRandomAudioUrl() {
-    var localAudioList = getLocalAudioList();
-    if (current_vo_language == "ja") {
-      const randomIndex = Math.floor(Math.random() * 2) + 1;
-      return localAudioList[randomIndex];
-    }
+    const localAudioList = getLocalAudioList();
     const randomIndex = Math.floor(Math.random() * localAudioList.length);
     return localAudioList[randomIndex];
   }
@@ -264,9 +251,9 @@ const progress = [0, 1];
     let audioUrl;
     if (firstSquish) {
       firstSquish = false;
-      audioUrl = getLocalAudioList()[0];
+      audioUrl = cacheStaticObj(getLocalAudioList()[0]);
     } else {
-      audioUrl = getRandomAudioUrl();
+      audioUrl = cacheStaticObj(getRandomAudioUrl());
     }
     let audio = new Audio(); //cacheStaticObj(audioUrl));
     audio.src = audioUrl;
@@ -536,9 +523,19 @@ const progress = [0, 1];
         });
 
         $("#vo-language-selector").on("change", (ev) => {
-          // convertMp3FilesToBlob(LANGUAGES, current_vo_language);
-          current_vo_language = ev.target.value;
-          localStorage.setItem("volang", ev.target.value);
+          document.getElementById("loading").style.display = "unset";
+          convertMp3FilesToBlob(LANGUAGES, current_vo_language, ev.target.value)
+            .then(() => {
+              current_vo_language = ev.target.value;
+              localStorage.setItem("volang", ev.target.value);
+            })
+            .catch((error) => {
+              console.error(error);
+            })
+            .finally(() => {
+              refreshDynamicTexts();
+              document.getElementById("loading").style.display = "none";
+            });
         });
 
         $("#random-speed-type").on("change", (ev) => {
